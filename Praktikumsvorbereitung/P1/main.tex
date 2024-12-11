@@ -1,0 +1,223 @@
+\documentclass{article}
+\usepackage[fontsize=10pt]{scrextend}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
+\usepackage{siunitx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[version=4]{mhchem}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{csquotes}
+\usepackage{trfsigns}
+\usepackage{capt-of}
+\usepackage{multicol}
+\usepackage{sectsty}
+% \usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{verbatim}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{parskip}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{flushend} % Manually balance columns
+%\usepackage{courier}
+\usepackage{import}
+\usepackage[colorlinks=true, linkcolor=None]{hyperref}
+\usepackage{bookmark}
+\usepackage[singlespacing]{setspace}
+\newcommand{\laplpeer}{\quad \laplace \quad}
+\newcommand{\pquad}{\quad\quad}
+\newcommand{\prlarrow}{\quad \Leftrightarrow \quad}
+
+% Schriftgröße ändern
+% \textbffont{\fontsize{7}{6}\selectfont}
+% \sectionfont{\fontsize{7}{6}\selectfont}
+% \subsectionfont{\fontsize{7}{6}\selectfont}
+% \subsubsectionfont{\fontsize{7}{6}\selectfont}
+% \paragraphfont{\fontsize{6}{6}\selectfont}
+% \fontsize{4}{6}\selectfont % Schriftgröße auf 6pt festlegen, Zeilenabstand auf 7pt
+
+
+% Schriftgröße für mathematische Ausdrücke ändern
+%\everymath{\displaystyle\fontsize{10}{10}\selectfont} % In-Line-Mathemodus
+%\everydisplay{\fontsize{10}{10}\selectfont} % Display-Mathemodus
+
+
+\sisetup{locale=DE}
+\sisetup{per-mode = symbol-or-fraction}
+\sisetup{separate-uncertainty=true}
+\DeclareSIUnit\year{a}
+\DeclareSIUnit\clight{c}
+
+\mdfdefinestyle{exercise}{
+	backgroundcolor=blue!6,roundcorner=8pt,hidealllines=true, nobreak
+}
+\mdfdefinestyle{caption}{
+backgroundcolor=blue!8,roundcorner=8pt,hidealllines=true,nobreak, innerbottommargin=0.0cm,skipbelow=0cm,
+}
+\mdfdefinestyle{highlight}{
+   roundcorner=8pt,nobreak
+}
+
+
+\begin{document}
+%\setcounter{tocdepth}{1}
+%\tableofcontents
+%\newpage
+\linespread{0.3}
+% \begin{singlespace} 
+% \pagestyle{fancy}
+% \lhead{Signale und Systeme\\ Formelsammlung}
+% \rhead{\today \\ Peer Orzelek}
+%\part{ }
+
+\section{Auslegung und Aufbau}
+\begin{enumerate}
+    \item Dimensionieren Sie die Leistungsdrossel des Wandlers.
+    \begin{itemize}
+        \item Bestimmen Sie den Drosselwert.
+        \begin{itemize}
+            \item Angaben: $U_{in} = 12V$, $U_{out, max} = 24V$, $I_{out, max} = 2A$, $f_{s} = 62745.1Hz$.
+            \begin{enumerate}
+                \item[\textbf{a)}] \textbf{Berechnung} mit Annahme: $\eta = 1$
+                \begin{itemize}
+                    \item Wirkungsgrad:
+                    \[
+                    \eta = \frac{P_{\text{out}}}{P_{\text{in}}} = \frac{I_{\text{out}} \cdot U_{\text{out}}}{I_{\text{in}} \cdot U_{\text{in}}}
+                    \]
+                    Daraus folgt:
+                    \[
+                    I_{\text{in}} = \frac{I_{\text{out}} \cdot U_{\text{out}}}{U_{\text{in}}} = \frac{2\,\text{A} \cdot 24\,\text{V}}{12\,\text{V}} = 4\,\text{A}
+                    \]
+            
+                    \item Welligkeit des Stroms:
+                    \[
+                    r = 0.3 \quad \rightarrow \text{ mit } I_L = I_{\text{in}} \quad \Delta I_L = 0.3 \cdot I_{\text{L}} = 1.2\,\text{A}
+                    \]
+            
+                    \item Ausgangsspannung und Tastverhältnis:
+                    \[
+                    U_{\text{out}} = \frac{U_{\text{in}}}{1 - D} \quad \Leftrightarrow \quad D = 1 - \frac{U_{\text{in}}}{U_{\text{out}}} = 0.5
+                    \]
+            
+                    \item Einschaltzeit:
+                    \[
+                    t_{\text{on}} = D \cdot T = 0.5 \cdot \frac{1}{f_s} = 7.9687\,\mu\text{s}
+                    \]
+            
+                    \item Induktivität der Drossel:
+                    \[
+                    \Delta I_L = \frac{U_e \cdot t_{\text{on}}}{L} \quad \Leftrightarrow \quad L = \frac{U_e \cdot t_{\text{on}}}{\Delta I_L}
+                    \]
+                    Einsetzen:
+                    \[
+                    L = \frac{12\,\text{V} \cdot 7.9687\,\mu\text{s}}{1.2\,\text{A}} \approx 80\,\mu\text{H}
+                    \]
+                \end{itemize}
+            \end{enumerate}
+        \end{itemize}
+
+        \item Bestimmen Sie das minimale Luftspaltvolumen.
+        \begin{enumerate}
+            \item[\textbf{b)}] \textbf{Berechnung} mit Annahme \(B_{\text{max}} = 0.3\,\text{T}\)
+            \begin{itemize}
+                \item \begin{align*}
+                    V_{\text{luft}} &= \frac{L \cdot \hat{i}_L^2 \cdot \mu_0}{B_{\text{max}}^2} \\
+                    &= \frac{80 \, \mu\text{H} \cdot (4 + 0.6)^2 \cdot \mu_0}{(0.3\,\text{T})^2} \\
+                    &= 23.6 \cdot 10^{-9}\,\text{m}^3
+                \end{align*}            
+
+                \item Berechnung der Luftspalthöhe:
+                \[
+                L_{\text{luft}} = \frac{V_{\text{luft}}}{A_{\text{min}}}
+                \]
+                mit $A_{\text{min}} = 71.0\,\text{mm}^2 = 71.0 \cdot 10^{-4}\,\text{m}^2$ (aus dem Datenblatt), ergibt sich:
+                \[
+                L_{\text{luft}} = \frac{23.6 \cdot 10^{-9}\,\text{m}^3}{71.0 \cdot 10^{-4}\,\text{m}^2} = 0.33\,\text{mm}
+                \]
+
+            \end{itemize}
+        \end{enumerate}
+
+        \item Wählen Sie einen geeigneten Kern und bestimmen Sie die benötigte Anzahl der Windungen.
+        \begin{enumerate}
+            \item[\textbf{c)}] \textbf{Berechnung}:
+        \begin{itemize}
+            \item Wahl geeigneten Kerns: 
+            \item Berechnung der Windungszahl:
+            \begin{align*}
+                N &= \sqrt{\frac{L}{A_L}} \\
+                  &= \sqrt{\frac{80 \, \mu\text{H}}{201 \, \text{nH}}} = 20
+            \end{align*}                
+        \end{itemize}
+        \hfill \break
+        \end{enumerate}
+
+        \item Dimensionieren Sie den Draht der Wicklung.
+        \begin{enumerate}
+            \item[\textbf{d)}] \textbf{Berechnung}:
+        \begin{itemize}
+            \item Berechnung des Drahtdurchmessers mit Annahme von S \(\approx 6 \frac{A}{mm^2} \):
+            \begin{align*}
+                d &= \sqrt{\frac{4 \cdot I_{\text{L(RMS)}}}{\pi \cdot S}} \\
+                &= \sqrt{\frac{4 \cdot 4\,\text{A}}{\pi \cdot 6 \frac{A}{mm^2} }} = 0.92\text{mm} \approx 1\text{mm}
+            \end{align*}
+
+            \item Berechnung des Skin-Effekts mit Annahme von \(\mu_{r(Cu)} \approx 1\), \(\kappa_{\text{Cu}} = 56 \frac{MS}{m}\):
+            \begin{align*}
+                \delta &= \sqrt{\frac{1}{\pi \cdot f_s \cdot \mu_0 \cdot \mu_r \cdot \kappa_{\text{Cu}}}} \\
+                &= \sqrt{\frac{1}{\pi \cdot 62745.1\,\text{Hz} \cdot \mu_0 \cdot 56\,\frac{\text{MS}}{\text{m}}}} = 0.268\,\text{mm}
+            \end{align*}
+
+            \item Berechnung der Anzahl der Leiterstränge für Litzendraht:
+            \begin{align*}
+                n &= \frac{A_{\text{ges}}}{A(d)} = \frac{\pi \cdot \left(\frac{d}{2}\right)^2}{\pi \cdot \delta^2} \\
+                &= \frac{\pi \cdot \left(\frac{0.92\,\text{mm}}{2}\right)^2}{\pi \cdot (0.268\text{mm})^2} \approx 3
+            \end{align*}
+            es werden $n = 3$ Stränge benötigt.
+        \end{itemize}
+        \end{enumerate}
+
+        \item Bauen Sie anhand Ihrer Auslegung eine Drossel für Ihren Wandler.
+        \begin{enumerate}
+            \item[\textbf{d)}] \textbf{Simulation}:
+        \end{enumerate}
+
+    \end{itemize}
+
+    \item Als Transistortreiber soll ein Emitterfolger verwendet werden.
+    \begin{itemize}
+        \item Informieren Sie sich vorab über den Aufbau sowie die Funktionsweise der Treiberstufe und simulieren Sie diese in LT-Spice. Als Ansteuerspannung des Transistors werden die 12V Eingangsspannung verwendet.
+        \item Das benötigte PWM-Signal zur Ansteuerung des Wandlers wird von einem Arduino-Mikrocontroller erzeugt. Da dieses Signal lediglich ein Spannungsniveau von 5V aufweist, muss dieses Signal noch an das Potential des Emitterfolgers angepasst werden. Überlegen Sie sich eine geeignete Schaltung und ergänzen Sie Ihre Simulation entsprechend.
+    \end{itemize}
+
+    \item Berechnen Sie den Wert der Ausgangskapazität. Als Eingangskapazität kann ein Wert von 1x 680\,$\mu$F verwendet werden.
+
+    \item Zeichnen Sie den Stromlaufplan Ihrer Schaltung.
+    \begin{itemize}
+        \item Der Tastgrad des Wandlers soll wahlweise fest oder mittels eines Potentiometers vorgegeben werden. Zusätzlich soll jede Sekunde die aktuelle Ausgangsspannung ausgegeben werden. Wählen Sie für diese Aufgabe geeignete Eingänge des Controllers und dimensionieren Sie die Schaltung zur Sollwertvorgabe sowie die Ausgangsspannungsmessung.
+    \end{itemize}
+
+    \item Bauen Sie anhand Ihrer Auslegung einen Aufwärtswandler auf einer Lochrasterleiterplatte.
+    \begin{itemize}
+        \item Informieren Sie sich hierfür im Voraus über den Begriff Kommutierungskreis und versuchen Sie diesen soweit wie möglich zu optimieren.
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+\section{Versuchsdurchführung}
+
+
+\end{document}
